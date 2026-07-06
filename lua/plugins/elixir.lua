@@ -1,4 +1,30 @@
 return {
+
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        elixirls = {
+          cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
+          settings = {
+            elixirLS = {
+              dialyzerEnabled = true,
+              fetchDeps = false,
+              enableTestLenses = true,
+              suggestSpecs = true
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "elixir", "heex", "eex" })
+    end,
+  },
   {
     "emmanueltouzery/elixir-extras.nvim",
     lazy = true,
